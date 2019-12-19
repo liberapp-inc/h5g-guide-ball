@@ -31,6 +31,9 @@ class GameManager extends GameObject
         this.timer = new egret.Timer(1000, 0);
         this.timer.start();
 
+        //new BallBase(100, 200, new egret.Point(0,1), 300 );
+        new BallGenerator();
+
     }
 
 

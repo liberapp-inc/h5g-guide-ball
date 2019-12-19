@@ -35,6 +35,7 @@ class Game
         new Background();
         new Score();
         new GameManager();
+        new BallManager();
     }
 }
 
