@@ -1,5 +1,5 @@
-const BALL_COLOR : number = 0xf00000;
-const BALL_RADIUS : number = 10;
+const BALL_COLOR : number = 0xf0f0ff;
+const BALL_RADIUS : number = 8;
 
 class BallBase extends GameObject
 {
@@ -12,19 +12,19 @@ class BallBase extends GameObject
     private type : number;  // 0:障害物 1:回復
 
     // todo 引数なしにする
-    constructor( x:number, y:number, vel:egret.Point, speed:number )
+    constructor( /*x:number, y:number, vel:egret.Point, speed:number*/ )
     {
         super();
 
         this.isDisable = false;
         this.dist = 0;
-        this.speed = speed * Game.deltaTime;
+        //this.speed = speed * Game.deltaTime;
 
-        this.velocity = new egret.Point( vel.x, vel.y );
-        this.velocity.x *= this.speed;
-        this.velocity.y *= this.speed;
+        this.velocity = new egret.Point( /*vel.x, vel.y*/ );
+        //this.velocity.x *= this.speed;
+        //this.velocity.y *= this.speed;
 
-        this.setShape( x, y, BALL_RADIUS );
+        this.setShape( 0, 0, BALL_RADIUS );
     }
 
     onDestroy() {
@@ -90,7 +90,7 @@ class BallBase extends GameObject
         this.shape.y = next.y;
         
         this.dist += this.speed;
-        if( this.dist > 500 ){
+        if( this.dist > 1000 ){
             //this.destroy();
             this.isDisable = true;
             this.shape.graphics.clear();

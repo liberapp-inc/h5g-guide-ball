@@ -36,7 +36,7 @@ class BallManager extends GameObject
             return this.ballList[idx];
         }
         else{
-            let newBall = new BallBase( 100, 100, new egret.Point(0,1), 200 );
+            let newBall = new BallBase( /*100, 100, new egret.Point(0,1), 200*/ );
             this.ballList.push( newBall );
             //egret.log( "num " + this.ballList.length);
             return newBall;

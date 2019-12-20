@@ -53,7 +53,8 @@ class GameManager extends GameObject
         }
         
         if( this.text != null ){
-            this.text.text = this.timer.currentCount.toString();
+            //this.text.text = this.timer.currentCount.toString();
+            this.text.text = DrawManager.I.lineRemain.toString();
         }
     }
 }

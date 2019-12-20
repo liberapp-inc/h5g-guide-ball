@@ -36,6 +36,7 @@ class Game
         new Score();
         new GameManager();
         new BallManager();
+        new DrawManager();
     }
 }
 
