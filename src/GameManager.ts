@@ -36,15 +36,14 @@ class GameManager extends GameObject
 
     }
 
-
-    onDestroy() {
+    onDestroy()
+    {
         GameObject.uiDisplay.removeChild( this.text );
         this.text = null;
         
         this.timer = null;
         GameManager.I = null;
     }
-
 
     updateContent()
     {

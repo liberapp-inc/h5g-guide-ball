@@ -25,8 +25,8 @@ class BallGenerator extends GameObject
 
         this.waitTimer = new egret.Timer(1000, 0);
 
-        this.setShape( 200, 100, 30 );
-        this.rot = Math.PI;
+        this.setShape( 200, 200, 30 );
+        this.rot = Math.PI*0.75;
 
         // test
         this.start();

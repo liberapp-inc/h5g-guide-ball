@@ -3,7 +3,7 @@ class Button extends GameObject
     private isTapped : boolean = false;
     private onTapped : ()=>void = null;
     private text : egret.TextField = null;
-    static uiIndex : number = 0;
+    //static uiIndex : number = 0;
 
     constructor( label:string, x:number, y:number, w:number, h:number, backCol:number, fontCol:number, fontSize:number, onTappedHandler:()=>void )
     {

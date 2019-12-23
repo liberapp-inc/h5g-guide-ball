@@ -19,6 +19,7 @@ class DrawManager extends GameObject
     private stepFunc : ()=>void = null;
     private circles : egret.Shape[] = new Array(2);
     private drawDisable : boolean = false;
+    public lines : LineBase[] = new Array();
 
     constructor()
     {
@@ -127,7 +128,7 @@ class DrawManager extends GameObject
         }
 
         this.shape.graphics.clear();
-        this.shape.graphics.lineStyle( 8, DRAW_COL );
+        this.shape.graphics.lineStyle( 4, DRAW_COL );
         this.shape.graphics.moveTo( this.startPos.x, this.startPos.y );
         this.shape.graphics.lineTo( this.endPos.x, this.endPos.y );
 
@@ -147,7 +148,7 @@ class DrawManager extends GameObject
         this.circles[1].graphics.clear();
 
         let lenSq = (this.endPos.x - this.startPos.x)**2 + (this.endPos.y - this.startPos.y)**2;
-        if( lenSq > 400 ){
+        if( lenSq > 20*20 ){      // 最低限の長さ必要.
             this.lineLen += Math.sqrt( lenSq );
             this.lineRemain = 640 - this.lineLen;
             if( this.lineRemain < 20 ){
@@ -157,7 +158,9 @@ class DrawManager extends GameObject
                 this.lineRemain = 0;
             }
 
-            new LineBase( this.startPos, this.endPos );
+            let line = new LineBase( this.startPos, this.endPos );
+            this.lines.push( line );
+
         }
 
         this.stepFunc = null;

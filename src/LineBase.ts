@@ -14,7 +14,7 @@ class LineBase extends GameObject
         this.endPos = new egret.Point( end.x, end.y );
 
         this.shape = new egret.Shape();
-        this.shape.graphics.lineStyle( 8, LINE_COL );
+        this.shape.graphics.lineStyle( 4, LINE_COL );
         this.shape.graphics.moveTo( this.startPos.x, this.startPos.y );
         this.shape.graphics.lineTo( this.endPos.x, this.endPos.y );
         GameObject.gameDisplay.addChild( this.shape );

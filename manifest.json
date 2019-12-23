@@ -23,6 +23,7 @@
 		"bin-debug/Main.js",
 		"bin-debug/Score.js",
 		"bin-debug/SimpleText.js",
+		"bin-debug/target.js",
 		"bin-debug/Title.js",
 		"bin-debug/Util.js"
 	]
