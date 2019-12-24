@@ -15,8 +15,8 @@ class Target extends GameObject
 
         this.life = 100;
 
-        this.radius = 30;
-        this.pos = new egret.Point( 600, 600 );
+        this.radius = 50;
+        this.pos = new egret.Point( 400, 600 );
         this.setShape( this.pos.x, this.pos.y, this.radius );
 
         this.text = Util.myText( this.pos.x, this.pos.y, this.life.toString(), 50, 0.5, 0xc0c0c0, false, true );

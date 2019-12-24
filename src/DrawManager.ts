@@ -1,5 +1,5 @@
 
-const DRAW_COL = 0x00c040;
+const DRAW_COL = 0x00c020;
 
 enum MyTouchStatus{
     None,

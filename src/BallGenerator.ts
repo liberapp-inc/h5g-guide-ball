@@ -44,6 +44,9 @@ class BallGenerator extends GameObject
 
         this.shape.graphics.lineStyle( 2, 0xffffff );
         this.shape.graphics.drawCircle(0, 0, size);
+        //this.shape.graphics.beginFill(0xf0f0f0);
+        //this.shape.graphics.drawCircle(0, 0, size);
+        //this.shape.graphics.endFill();
 
         GameObject.gameDisplay.addChild( this.shape );
     }
@@ -52,7 +55,7 @@ class BallGenerator extends GameObject
 
     public start()
     {
-        this.timer = new egret.Timer( 500 );
+        this.timer = new egret.Timer( 200 );    // 生成間隔.
         this.timer.addEventListener( egret.TimerEvent.TIMER, this.timerFunc, this );
         //this.timer.addEventListener( egret.TimerEvent.TIMER_COMPLETE, this.timerComplete, this );
 

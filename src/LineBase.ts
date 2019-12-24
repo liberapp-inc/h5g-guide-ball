@@ -1,10 +1,12 @@
 
-const LINE_COL = 0x00f080;
+const LINE_COL = 0x00ff00;
 
 class LineBase extends GameObject
 {
-    private startPos : egret.Point;
-    private endPos : egret.Point;
+    public startPos : egret.Point;
+    public endPos : egret.Point;
+    public dir : egret.Point;
+    public normals : egret.Point[] = new Array(2);
 
     constructor( start:egret.Point, end:egret.Point )
     {
@@ -12,6 +14,17 @@ class LineBase extends GameObject
 
         this.startPos = new egret.Point( start.x, start.y );
         this.endPos = new egret.Point( end.x, end.y );
+
+        this.dir = end.subtract( start );
+        this.dir.normalize(1);
+
+        // 法線.
+        let mat = new egret.Matrix();
+        mat.rotate( Math.PI/2 );
+        this.normals[0] = new egret.Point();
+        mat.transformPoint( this.dir.x, this.dir.y, this.normals[0] );
+
+        this.normals[1] = new egret.Point( -this.normals[0].x, -this.normals[0].y );
 
         this.shape = new egret.Shape();
         this.shape.graphics.lineStyle( 4, LINE_COL );
