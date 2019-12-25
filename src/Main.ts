@@ -38,6 +38,7 @@ class Game
         new BallManager();
         new DrawManager();
         new Target();
+        new ObstacleManager();
     }
 }
 
