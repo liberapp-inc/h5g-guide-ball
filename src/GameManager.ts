@@ -31,8 +31,7 @@ class GameManager extends GameObject
         this.timer = new egret.Timer(1000, 0);
         this.timer.start();
 
-        //new BallBase(100, 200, new egret.Point(0,1), 300 );
-        new BallGenerator();
+        //new BallGenerator();
 
     }
 
@@ -53,7 +52,28 @@ class GameManager extends GameObject
         
         if( this.text != null ){
             //this.text.text = this.timer.currentCount.toString();
-            this.text.text = DrawManager.I.lineRemain.toString();
+            //this.text.text = DrawManager.I.lineRemain.toString();
+
+            //let max = BallManager.I.ballList.length;
+            let max = EffectManager.I.effectList.length;
+            let live = 0;
+            for( let i = 0; i < EffectManager.I.effectList.length; i++ ){
+                if( !EffectManager.I.effectList[i].isDisable ){
+                    live++;
+                }
+            }
+/*            for( let i = 0; i < BallManager.I.ballList.length; i++ ){
+                if( !BallManager.I.ballList[i].isDisable ){
+                    live++;
+                }
+            }*/
+
+            this.text.text = live.toString() + " / " + max.toString();
+
+            if( max > 0 && live == 0 ){
+                //egret.log("game over");
+                //this.pause = true;
+            }
         }
     }
 }

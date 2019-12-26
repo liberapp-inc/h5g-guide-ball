@@ -74,7 +74,6 @@ abstract class GameObject {
         /*
         if( this.shape ){
             GameObject.display.removeChild(this.shape);
-            //this.shape.parent.removeChild(this.shape);
             this.shape = null;
         }*/
     }

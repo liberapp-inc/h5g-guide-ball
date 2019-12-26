@@ -1,7 +1,7 @@
 class BallManager extends GameObject
 {
     static I : BallManager = null;   // singleton instance
-    private ballList : BallBase[];
+    public ballList : BallBase[];
 
     constructor() {
         super();
@@ -19,12 +19,7 @@ class BallManager extends GameObject
     requestBall() : BallBase
     {
         let idx = -1;
-        /*this.ballList.forEach( (element, index) => {
-            if( element.isDisable ){
-                idx = index;
-                return;
-            }
-        });*/
+
         for( let i = 0; i < this.ballList.length; i++ ){
             if( this.ballList[i].isDisable ){
                 idx = i;
@@ -33,9 +28,11 @@ class BallManager extends GameObject
         }
 
         if( idx != -1 ){
+            // 再利用.
             return this.ballList[idx];
         }
         else{
+            // 新規作成.
             let newBall = new BallBase( /*100, 100, new egret.Point(0,1), 200*/ );
             this.ballList.push( newBall );
             //egret.log( "num " + this.ballList.length);
@@ -46,5 +43,15 @@ class BallManager extends GameObject
 
     updateContent()
     {
+        let isEnd = true;
+        for( let i = 0; i < this.ballList.length; i++ ){
+            if( !this.ballList[i].isDisable ){
+                isEnd = false;
+                break;
+            }
+        }
+        if( isEnd ){
+            //egret.log("ball 0");
+        }
     }
 }

@@ -31,14 +31,16 @@ class Game
         this.width  = egret.MainContext.instance.stage.stageWidth;
         this.deltaTime = 1 / egret.MainContext.instance.stage.frameRate;
 
-        /* new メソッドを記入*/
+        // new メソッドを記入
         new Background();
         new Score();
         new GameManager();
         new BallManager();
-        new DrawManager();
+        new BallGenManager();
         new Target();
         new ObstacleManager();
+        new EffectManager();
+        new DrawManager();
     }
 }
 

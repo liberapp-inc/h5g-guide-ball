@@ -13,7 +13,7 @@ class Target extends GameObject
         super();
         Target.I = this;
 
-        this.life = 100;
+        this.life = 30;
 
         this.radius = 50;
         this.pos = new egret.Point( 400, 600 );
@@ -61,7 +61,10 @@ class Target extends GameObject
         this.life--;
         if( this.life <= 0 ){
             this.life = 0;
-            
+
+            // クリア処理.
+            GameManager.I.pause = true;
+            GameObject.transit = Game.init;
         }
         this.text.text = this.life.toString();
         // センタリングし直す.

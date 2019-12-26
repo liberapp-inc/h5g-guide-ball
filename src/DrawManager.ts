@@ -14,17 +14,20 @@ class DrawManager extends GameObject
     private startPos : egret.Point;
     private endPos : egret.Point;
     public lineLen : number = 0;
-    public lineRemain : number = 640;
+    public lineRemain : number = 620;
     private touchStatus : MyTouchStatus;
     private stepFunc : ()=>void = null;
     private circles : egret.Shape[] = new Array(2);
     private drawDisable : boolean = false;
-    public lines : LineBase[] = new Array();
+    public lines : LineBase[];
+    private gauge : Gauge;
 
     constructor()
     {
         super();
         DrawManager.I = this;
+
+        this.lines = [];
 
         this.startPos = new egret.Point();
         this.endPos = new egret.Point();
@@ -42,6 +45,9 @@ class DrawManager extends GameObject
             this.circles[i] = new egret.Shape();
             GameObject.gameDisplay.addChild( this.circles[i] );
         }
+
+        // ゲージ.
+        this.gauge = new Gauge(this.lineRemain);
     }
 
     onDestroy()
@@ -54,6 +60,10 @@ class DrawManager extends GameObject
         GameObject.gameDisplay.removeChild( this.circles[1] );
         this.circles[1] = null;
 
+        this.lines = [];
+
+        this.gauge = null;
+
         DrawManager.I = null;
     }
 
@@ -65,32 +75,22 @@ class DrawManager extends GameObject
         }
         switch ( evt.type ){
             case egret.TouchEvent.TOUCH_MOVE:
-                //console.log("touch move");
                 this.endPos.x = evt.stageX;
                 this.endPos.y = evt.stageY;
                 this.touchStatus = MyTouchStatus.Move;
                 this.stepFunc = this.touchMove;
                 break;
             case egret.TouchEvent.TOUCH_BEGIN:
-                //egret.MainContext.instance.stage.addEventListener( egret.TouchEvent.TOUCH_MOVE, this.touchHandler, this );
-                //egret.MainContext.instance.stage.once( egret.TouchEvent.TOUCH_END, this.touchHandler, this );
-                //console.log("touch begin");
                 this.stepFunc = this.touchStart;
                 this.startPos.x = evt.stageX;
                 this.startPos.y = evt.stageY;
                 this.endPos.x = evt.stageX;
                 this.endPos.y = evt.stageY;
-                //egret.log( "st "+ evt.stageX + ", " + evt.stageY );
                 this.touchStatus = MyTouchStatus.Start;
                 break;
             case egret. TouchEvent.TOUCH_END:
-                //egret.MainContext.instance.stage.removeEventListener( egret.TouchEvent.TOUCH_MOVE, this.touchHandler, this );
-                //egret.MainContext.instance.stage.addEventListener( egret.TouchEvent.TOUCH_BEGIN, this.touchHandler, this );
-                //console.log("touch end");
                 this.stepFunc = this.touchEnd;
                 this.touchStatus = MyTouchStatus.End;
-
-                //egret.log( "ed " + evt.stageX + ", " + evt.stageY );
                 break;
         }
     }
@@ -153,6 +153,7 @@ class DrawManager extends GameObject
             this.lineRemain = 640 - this.lineLen;
             if( this.lineRemain < 20 ){
                 this.drawDisable = true;
+                this.lineRemain = 0;
             }
             if( this.lineRemain < 0 ){
                 this.lineRemain = 0;
@@ -161,6 +162,7 @@ class DrawManager extends GameObject
             let line = new LineBase( this.startPos, this.endPos );
             this.lines.push( line );
 
+            this.gauge.updateGauge( this.lineRemain );
         }
 
         this.stepFunc = null;

@@ -4,7 +4,6 @@ const GEN_YOFS : number = 150;
 
 class BallGenerator extends GameObject
 {
-    //static I : BallGenerator = null;   // singleton instance
     public timer : egret.Timer = null;
     //public waitTimer : egret.Timer = null;
     private textCntr : egret.TextField = null;
@@ -13,24 +12,23 @@ class BallGenerator extends GameObject
     private rot : number;
     private speed : number;
     private counter : number;
+    public isEnd : boolean = false;
 
-    constructor() {
+    constructor( x:number, y:number, radius:number, rot:number, delay:number, count:number ) {
         super();
 
-        //BallGenerator.I = this;
-
-        this.textCntr = Util.myText(200, 200-30*2, "100", 50, 0.5, 0xc0c0c0, false, true);        
+        this.textCntr = Util.myText(x, y-30*2, count.toString(), 50, 0.5, 0xe0e0e0, false, true);        
         GameObject.uiDisplay.addChild( this.textCntr );
 
         //this.waitTimer = new egret.Timer(1000, 0);
 
-        this.setShape( 200, 200, 30 );
-        this.rot = Math.PI*0.75;
+        this.setShape( x, y, radius );
+        this.rot = rot;
         this.speed = 300;
-        this.counter = 100;
+        this.counter = count;
 
         // test
-        this.start();
+        this.start( delay );
     }
 
     setShape( x: number, y:number, size: number )
@@ -53,9 +51,9 @@ class BallGenerator extends GameObject
     }
 
 
-    public start()
+    public start( delay:number )
     {
-        this.timer = new egret.Timer( 200, this.counter );    // 生成間隔.
+        this.timer = new egret.Timer( delay, this.counter );    // 生成間隔.
         this.timer.addEventListener( egret.TimerEvent.TIMER, this.timerFunc, this );
         this.timer.addEventListener( egret.TimerEvent.TIMER_COMPLETE, this.timerComplete, this );
 
@@ -71,7 +69,6 @@ class BallGenerator extends GameObject
         this.timer.removeEventListener( egret.TimerEvent.TIMER_COMPLETE, this.timerComplete, this );
         this.timer = null;
         //this.waitTimer = null;
-        //BallGenerator.I = null;
     }
 
 
@@ -83,6 +80,7 @@ class BallGenerator extends GameObject
 
     private timerComplete(event: egret.Event)
     {
+        this.isEnd = true;
     }
 
     updateContent()

@@ -76,12 +76,25 @@ class BallBase extends GameObject
         let pos = new egret.Point( this.shape.x, this.shape.y );
         let next = pos.add( this.velocity );
 
-        // todo 範囲チェック
+        // 範囲チェック.
+        if( pos.x < 0 || pos.x > Game.width ){
+            this.disable();
+            return;
+        }
+        if( pos.y < 0 || pos.y > Game.height ){
+            this.disable();
+            return;            
+        }
+
 
         // ターゲットとのあたりチェック.
         if( this.checkColliTarget( pos, next ) ){
-            this.destroy();
+            this.disable();
             Target.I.delLife();
+            //new Effect( this.shape.x, this.shape.y, 0xff0000 );
+            let eff = EffectManager.I.requestEffect();
+            eff.activate( this.shape.x, this.shape.y, 0xff0000 )
+
             return;
         }
 
@@ -101,7 +114,10 @@ class BallBase extends GameObject
 
         // 障害物とのあたりチェック.
         if( this.checkObstacle( pos, next ) ){
-            this.destroy();
+            this.disable();
+            //new Effect( this.shape.x, this.shape.y, 0x000000 );
+            let eff = EffectManager.I.requestEffect();
+            eff.activate( this.shape.x, this.shape.y, 0x000000 )
             return;
         }
 
@@ -111,9 +127,16 @@ class BallBase extends GameObject
         this.dist += this.speed;
         if( this.dist > 2000 ){
             // 消す.
-            this.isDisable = true;
-            this.shape.graphics.clear();
+            this.disable();
+            //this.isDisable = true;
+            //this.shape.graphics.clear();
         }
+    }
+
+    disable()
+    {
+        this.isDisable = true;
+        this.shape.graphics.clear();
     }
 
     // ターゲットとの当たり判定.
